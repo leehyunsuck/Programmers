@@ -4,7 +4,7 @@ class Solution {
     public int[] solution(String s) {
         Map<Character, Integer> charIdxMap = new HashMap<>();
         
-        List<Integer> answerList = new ArrayList<>();
+        int answer[] = new int[s.length()];
         
         for (int i = 0; i < s.length(); i++) {
             char findChar = s.charAt(i);
@@ -14,9 +14,9 @@ class Solution {
             else putAnswer = -1;
             
             charIdxMap.put(findChar, i);
-            answerList.add(putAnswer);
+            answer[i] = putAnswer;
         }
         
-        return answerList.stream().mapToInt(Integer::intValue).toArray();
+        return answer;
     }
 }
