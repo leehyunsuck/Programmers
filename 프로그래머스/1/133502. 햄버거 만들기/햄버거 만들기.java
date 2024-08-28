@@ -21,19 +21,3 @@ class Solution {
         return answer;
     }
 }
-
-/*
-시간초과
-
-        StringBuilder strBul = new StringBuilder();
-        for (int i : ingredient) strBul.append(i + "");
-
-        while (true) {
-            String strReplace = strBul.toString().replaceFirst("1231", "");
-            if (strReplace.length() == strBul.length()) break;
-            answer++;
-            strBul.setLength(0);
-            strBul.append(strReplace);
-        }
-
-*/
