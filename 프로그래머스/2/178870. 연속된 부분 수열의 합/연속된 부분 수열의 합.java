@@ -2,85 +2,30 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] sequence, int k) {
-        // 정렬되어있으니 k와 같은 요소가 인덱스에 있으면 return
-        int idx = Arrays.binarySearch(sequence, k);
-        if (idx >= 0) {
-            while (idx != 0 && sequence[idx] == sequence[idx-1]) idx--;
-            return new int[] {idx, idx};
-        }
-        
-        // 없으면 찾기
-        int[] answer = null;
-        int left = 0,
-            sum = 0,
-            saveLen = Integer.MAX_VALUE;
-        
+        int[] answer = {0, sequence.length};
+        int sum = 0, left = 0;
+    
         for (int right = 0; right < sequence.length; right++) {
             sum += sequence[right];
-            
-            while (sum > k && left < right) sum -= sequence[left++];
-            
-            if (sum == k && saveLen > right - left) {
-                saveLen = right - left;
-                answer = new int[] {left, right};
-            }
-            
+            while (sum > k && left <= right) sum -= sequence[left++];   
+            if (sum == k && right - left < answer[1] - answer[0]) answer = new int[] {left, right};
         }
         
-        return answer;
+        return answer; 
     }
 }
 
 /*
-10 ~ 시간초과
+오름차순으로 정렬된 수열이 주어짐
 
-        int[]   answer = {-1, -1},
-                tempSave = {0, 0};
-        
-        int sum = 0;
-        for (int i = 0; i < sequence.length && sequence[i] <= k; i++) {
-            sum += sequence[i];
-            
-            while (sum > k) {
-                sum = 0;
-                tempSave[0]++;
-                for (int j = tempSave[0]; j <= i; j++) sum += sequence[j];
-            }
-            
-            if (sum == k) {
-                sum = 0;
-                tempSave[1] = i;
-                if (answer[0] == -1 || answer[1] - answer[0] > tempSave[1] - tempSave[0]) {
-                    answer[0] = tempSave[0];
-                    answer[1] = tempSave[1];
-                }
-                tempSave[0]++;
-                for (int j = tempSave[0]; j <= i; j++) sum += sequence[j];
-            }
-        }
-        
-        return answer;
+[Q] 특정 조건을 만족하는 부분 수열 찾기
 
-*/
+Index X ~ Y 의 합 = K
 
+X ~ Y 가 여러개 ?
+    -> 길이가 짧은 것
+    
+길이가 짧은 X ~ Y 가 여러개 ?
+    -> 앞쪽에 나오는 == 인덱스 번호가 더 작은
 
-/*
-더 오래걸림
-
-
-        int idx = Arrays.binarySearch(sequence, k);
-        if (idx >= 0) {
-            while (idx != 0 && sequence[idx] == sequence[idx-1]) idx--;
-            return new int[] {idx, idx};
-        }
-   
-        for (int i = 1; i < sequence.length; i++) {
-            for (int j = 0; j < sequence.length - i; j++) {
-                if (sequence[j] > k) break;
-                int num = 0;
-                for (int l = j; l <= j + i; l++) num += sequence[l];
-                if (num == k) return new int[] {j, j+i};
-            }
-        }
-        return new int[2];
 */
