@@ -1,38 +1,30 @@
 class Solution {
-    public long solution(int k, int d) {
+    public long solution(int k, long d) {
         long answer = 0;
         
-        for (long x = 0; x <= d; x += k) {
-            //피타고라스로 y 최대 거리
-            long yMax = (long) Math.sqrt((long) d * d - (long) x * x);
-            
-            //y 계수 계산 -> k 배수인 y개수
-            answer += yMax / k + 1;
-        }
-        
+        //x의 좌표를 k 배수로 증가 반복
+        for (long x = 0; x <= d; x += k) 
+            // y^2 = d^2 - x^2  , (y^2 / k) + 1 (원점)          
+            answer += ((long) Math.sqrt(d * d - x * x)) / k + 1;
+
         return answer;
     }
 }
 
-/*
-[2 ,4]
-    0   1   2   3   4
-0   *       *       *
-1   
-2   *       *
-3
-4   *
 
+/*
 피타고라스
 
-x 0 ~ 4(d) 까지 반복
-y최대 = SQRT(4*4 - x*x)
-y최대 / 2(k)
+x^2 + y^2 <= d^2
 
-10 / 2 = 5 
-2 4 6 8 10
+d^2 - x^2 = y^2
 
-0 좌표도 추가해야 하니까 + 1
+x = 0 2 4 , d = 4
+y = sqrt(16, 12, 0) 4, 3.??, 0
 
+2 + 1   3
+1 + 1   2
+0 + 1   1
+        6
 
 */
