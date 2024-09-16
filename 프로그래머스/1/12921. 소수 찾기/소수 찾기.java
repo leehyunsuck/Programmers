@@ -4,13 +4,8 @@ class Solution {
         
         for (int number = 2; number <= n; number++) {
             int temp = 0;
-            for (int i = 1; i * i <= number; i++) {
-                if (number % i == 0) {
-                    temp++;
-                    if (number / i != i) temp++;
-                }
-                if (temp > 2) break;
-            }
+            for (int i = 1; i * i <= number && temp <= 2; i++)
+                if (number % i == 0) temp += (number / i != i) ? 2 : 1;
             if (temp == 2) answer++;
         }
         
