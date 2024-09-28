@@ -5,13 +5,9 @@ class Solution {
         StringBuilder answer = new StringBuilder();
     
         boolean upper = true;
-        for (char c : s.toCharArray()) {
-            if (c == ' ') upper = true;
-            else if (upper) {
-                if (!(c <= '9')) c = Character.toUpperCase(c);
-                upper = false;
-            } else c = Character.toLowerCase(c);
-            answer.append(c);
+        for (char c : s.toLowerCase().toCharArray()) {
+            answer.append(upper ? Character.toUpperCase(c) : c);
+            upper = c == ' ' ? true : false;
         }
     
         return answer.toString();
