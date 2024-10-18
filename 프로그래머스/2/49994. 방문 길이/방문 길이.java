@@ -31,15 +31,13 @@ class Solution {
             String add = "";
             if (location[0] == temp[0] && location[1] == temp[1]) continue;
             if (location[0] != temp[0]) {
-                //x 움직임
                 add = location[0] < temp[0] 
-                    ? "x" + location[0] + temp[0] + "y" + location[1] + temp[1]
-                    : "x" + temp[0] + location[0] + "y" + temp[1] + location[1];
+                    ? "x" + location[0] + temp[0] + location[1] + temp[1]
+                    : "x" + temp[0] + location[0] + temp[1] + location[1];
             } else {
-                //y 움직임
                 add = location[1] < temp[1] 
-                    ? "x" + location[0] + temp[0] + "y" + location[1] + temp[1] 
-                    : "x" + temp[0] + location[0] + "y" + temp[1] + location[1];
+                    ? "x" + location[0] + temp[0] + location[1] + temp[1] 
+                    : "x" + temp[0] + location[0] + temp[1] + location[1];
             }
             tempSet.add(add);
         }
