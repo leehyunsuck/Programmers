@@ -2,12 +2,16 @@ class Solution {
     public long solution(int a, int b) {
         long answer = 0;
         
-        int temp = a;
-        a = a < b ? a : b;
-        b = a < b ? b : temp;
+        int minNum = a,
+            maxNum = b;
         
-        for (; a <= b; a++)
-            answer += a;
+        if (minNum > maxNum) {
+            minNum = b;
+            maxNum = a;
+        }
+        
+        while (minNum <= maxNum) 
+            answer += minNum++;
         
         return answer;
     }
