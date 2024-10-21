@@ -1,39 +1,48 @@
 class Solution {
-    private static char[] chars = {'A', 'E', 'I', 'O', 'U'};
     
-    private String correctAnswer;
-    private int count;
-    
-    public void setCorrectAnswer(String answer) {
-        this.correctAnswer = answer;
-        this.count = 0;
-    }
+    private static char[] availableAlphabets = {'A', 'E', 'I', 'O', 'U'};
 
-    public void addCount() {
-        this.count += 1;
+    private String findWord;
+    private int counter;
+    private int maxLen;
+    
+    public void setFindWord(String word) {
+        this.findWord = word;
+        this.counter = 0;
     }
     
-    public int solution(String word) {
-        this.setCorrectAnswer(word);
-        
-        return countGenerateWords("");
+    public void setMaxLen(int len) {
+        this.maxLen = len;
     }
     
-    public int countGenerateWords(String word) {
+    public void addCounter() {
+        this.counter++;
+    }
+    
+    public boolean isWordsExist(String word) {
         if (word.length() > 0) {
-            this.addCount();
-            if (word.equals(this.correctAnswer))
-                return this.count;
+            this.addCounter();
+            if (word.equals(this.findWord)) return true;
         }
         
-        if (word.length() < 5) {
-            for (char c : chars) {
-                int getReturnValue = countGenerateWords(word + c);
-                if (getReturnValue != -1)
-                    return getReturnValue;
+        if (word.length() < maxLen) {
+            for (char c : availableAlphabets) {
+                if (this.isWordsExist(word + c)) return true;
             }
         }
         
-        return -1;
+        return false;
+    }
+    
+    public int solution(String word) {
+        this.setFindWord(word);
+        this.setMaxLen(5);
+        
+        int answer = -1;
+        String startWord = "";
+        
+        if (isWordsExist(startWord)) answer = this.counter;
+        
+        return answer;
     }
 }
