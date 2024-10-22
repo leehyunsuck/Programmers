@@ -7,24 +7,30 @@ class Solution {
             return 5 * cities.length;
         
         Queue<String> cache = new LinkedList<>();
+        Map<String, Byte> haveMap = new HashMap<>();
         
         int answer = 0;
         
         for (String city : cities) {
             city = city.toLowerCase(); 
             
-            // 캐쉬에 해당 값이 있음
-            if (cache.size() > 0 && cache.contains(city)) {
+            if (haveMap.containsKey(city)) {
                 answer++;
-                cache.remove(city);    // 사용했으니 다시 위에 넣기 위해 제거
+                cache.remove(city);
             } else {
                 answer += 5;
-                
-                if (cache.size() == cacheSize) cache.remove();
+                if (cache.size() == cacheSize) {
+                    String removeCity = cache.remove();
+                    haveMap.remove(removeCity);
+                }
             }
             cache.add(city);
+            haveMap.put(city, (byte) 0);
         }
         
         return answer;
     }
 }
+
+
+// 메모리: 123 MB, 시간: 39.26 ms
