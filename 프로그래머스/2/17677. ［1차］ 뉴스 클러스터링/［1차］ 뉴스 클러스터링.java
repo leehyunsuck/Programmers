@@ -26,13 +26,12 @@ class Solution {
         // 종류 : 개수
         Map<String, Integer> map = new HashMap<>();
         
-        for (String str : list1) {
-            int count = map.getOrDefault(str, 0);
-            map.put(str, count + 1);
-        }
-        
+        for (String str : list1)
+            map.put(str, map.getOrDefault(str, 0) + 1);
+
         for (String str : list2) {
             if (!map.containsKey(str)) continue;
+            
             int count = map.get(str) - 1;
             result++;
             
@@ -49,16 +48,14 @@ class Solution {
         for (int i = 0; i < strUpper.length() - 1; i++) {
             String addStr = strUpper.substring(i, i+2);
             
-            boolean pass = false;
+            boolean add = true;
             for (char c : addStr.toCharArray()) {
                 if (c >= 'a' && c <= 'z') continue;
                 if (c >= 'A' && c <= 'Z') continue;
-                pass = true;
+                add = false;
                 break;
             }
-            if (pass) continue;
-            
-            list.add(addStr);
+            if (add) list.add(addStr);
         }
     }
 }
