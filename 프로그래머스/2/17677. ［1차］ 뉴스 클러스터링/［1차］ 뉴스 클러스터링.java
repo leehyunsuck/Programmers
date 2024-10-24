@@ -8,14 +8,6 @@ class Solution {
         this.addList(str1List, str1);
         this.addList(str2List, str2);
         
-        for (String s : str1List) {
-            System.out.print(s + " ");
-        }
-        System.out.println("");
-        for (String s : str2List) {
-            System.out.print(s + " ");
-        }
-        
         int sameCount = this.sameSetCount(str1List, str2List);
         int listCount = str1List.size() + str2List.size();
             
