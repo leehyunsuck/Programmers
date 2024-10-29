@@ -1,13 +1,12 @@
 class Solution {
     public int solution(long num) {
-        int answer = 0;
+        return this.collatzLoop(num, 0);
+    }
+    
+    public int collatzLoop(long num, int loop) {
+        if (num == 1 || loop == 500) 
+            return loop == 500 ? -1 : loop;
         
-        while(num != 1 && answer < 500) {
-            if (num % 2 == 0) num /= 2;
-            else num = num * 3 + 1;
-            answer++;
-        }
-
-        return answer == 500 ? -1 : answer;
+        return this.collatzLoop(num % 2l == 0l ? num / 2l : num * 3l + 1l, loop + 1);
     }
 }
