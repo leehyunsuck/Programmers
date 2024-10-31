@@ -1,7 +1,8 @@
 import java.util.*;
 
-class Solution {
+class Solution {    
     public int solution(int[] mats, String[][] park) {
+        // 작은 값 부터 Queue에 넣기
         Arrays.sort(mats);
         Queue<Integer> matQueue = new LinkedList<>();
         for (int mat : mats)
@@ -12,7 +13,7 @@ class Solution {
                 canPlace(i, j, matQueue, park);
         
         if (matQueue.size() == mats.length) return -1;
-        if (matQueue.size() == 0) return mats[mats.length - 1];
+        if (matQueue.isEmpty())             return mats[mats.length - 1];
         
         int peek = matQueue.peek(); // 이거 전 꺼만 있음
         
@@ -38,8 +39,8 @@ class Solution {
                 if (!check) break;
             }
             
-            if (check) mat.remove();
-            else break;
+            if (check) mat.remove();    // 놓을 수 있으면 해당 사이즈 이제 볼 필요 없으니 제거
+            else break;                 // 놓을 수 없으면 더 큰 것도 못놓으니 확인안함
         }
     }
 }
