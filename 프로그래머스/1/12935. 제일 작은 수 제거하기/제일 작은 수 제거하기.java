@@ -4,13 +4,19 @@ class Solution {
     public int[] solution(int[] arr) {
         int minIdx = 0;
         
-        List<Integer> answer = new ArrayList<>();
+        List<Integer> answerList = new ArrayList<>();
         for (int idx = 0; idx < arr.length; idx++) {
-            answer.add(arr[idx]);
+            answerList.add(arr[idx]);
             if (arr[idx] < arr[minIdx]) minIdx = idx;
         }
-        answer.remove(minIdx);
+        answerList.remove(minIdx);
         
-        return answer.size() == 0 ? new int[] {-1} : answer.stream().mapToInt(Integer::intValue).toArray();
+        if (answerList.size() == 0) return new int[] {-1};
+        
+        int[] answer = new int[answerList.size()];
+        for (int idx = 0; idx < answerList.size(); idx++) 
+            answer[idx] = answerList.get(idx);
+        
+        return answer;
     }
 }
