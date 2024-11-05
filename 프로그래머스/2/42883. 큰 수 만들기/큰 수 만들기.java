@@ -2,22 +2,22 @@ import java.util.*;
 
 class Solution {
     public String solution(String number, int k) {
-        StringBuilder answer = new StringBuilder();
+        Stack<Integer> stack = new Stack<>();
+        int maxLen = number.length() - k;
         
-        int len = number.length(),
-            maxIdx = 0;
-        
-        for (int idx = 0; idx < len - k; idx++) {   // 0번 인덱스부터 쭉 이어보기
-            char maxChar = '0';
-            
-            for (int sIdx = maxIdx; sIdx <= k + idx; sIdx++) {
-                if (number.charAt(sIdx) > maxChar) {
-                    maxChar = number.charAt(sIdx);
-                    maxIdx = sIdx + 1;      // 가장 큰 값 다음부터 체크해야함
-                }
-            }
-            answer.append(maxChar);
+        for (char c : number.toCharArray()) {
+            int num = c - '0';
+            while (!stack.isEmpty() && num > stack.peek() && k-- > 0) 
+                stack.pop();
+            stack.push(num);
         }
+        
+        while (k-- > 0)
+            stack.pop();
+        
+        StringBuilder answer = new StringBuilder();
+        for (int num : stack)
+            answer.append(num);
         
         return answer.toString();
     }
