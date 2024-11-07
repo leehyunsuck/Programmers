@@ -1,6 +1,11 @@
+// 문제 진짜 문제있네
+
+// birdge_length는 다리의 길이이고, 1초에 1 만큼 움직일 수 있다.
+// 또한 트럭은 다리의 길이만큼 올라갈 수 있다.
+
 import java.util.*;
 
-class Solution {        // bridge_length 대수 까지 가능, weight 이하 무개까지 가능, 
+class Solution {
     public int solution(int bridge_length, int weight, int[] truck_weights) {
         int second = 0;
         
