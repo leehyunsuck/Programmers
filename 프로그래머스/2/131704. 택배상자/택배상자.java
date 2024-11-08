@@ -8,23 +8,13 @@ class Solution {
         
         int idx = 0;
         for (int box = 1; box <= order.length; box++) {
-            while (!secContainer.isEmpty() && secContainer.peek() == order[idx]) {
+            secContainer.push(box);
+            
+            while(!secContainer.isEmpty() && secContainer.peek() == order[idx]) {
                 answer++;
                 idx++;
                 secContainer.pop();
             }
-            if (box == order[idx]) {
-                answer++;
-                idx++;
-            } else {
-                secContainer.push(box);
-            }
-        }
-
-        while (!secContainer.isEmpty() && secContainer.peek() == order[idx]) {
-                answer++;
-                secContainer.pop();
-                idx++;
         }
 
         return answer;
