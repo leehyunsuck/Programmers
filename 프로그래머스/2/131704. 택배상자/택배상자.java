@@ -6,8 +6,7 @@ class Solution {
 
         Stack<Integer> secContainer = new Stack<>();
         
-        int idx = 0;
-        for (int box = 1; box <= order.length; box++) {
+        for (int box = 1, idx = 0; box <= order.length; box++) {
             secContainer.push(box);
             
             while(!secContainer.isEmpty() && secContainer.peek() == order[idx]) {
