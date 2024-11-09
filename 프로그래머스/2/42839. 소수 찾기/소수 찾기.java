@@ -13,12 +13,9 @@ class Solution {
         return answerSet.size();
     }
     
-    // 탐색
     public void dfs(String numbers, int result, boolean[] used, Set<Integer> answerSet) {
-        if (result != 0) {
-            if (this.isPrime(result))
-                answerSet.add(result);
-        }
+        if (result != 0 && this.isPrime(result)) 
+            answerSet.add(result);
         
         for (int i = 0; i < numbers.length(); i++) {
             if (used[i]) continue;
@@ -28,7 +25,7 @@ class Solution {
             used[i] = false;
         }
     }
-    
+
     // 소수 판별 및 숫자 정보 저장
     public boolean isPrime(int num) {
         if (primeInfo.containsKey(num))
