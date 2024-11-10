@@ -20,7 +20,7 @@ class Solution {
         if ((q1Sum + q2Sum) % 2 != 0) return -1;
         
         int repeat = 0;
-        int maxRepeat = (q1.size() + q2.size()) * 3;
+        int maxRepeat = (q1.size() + q2.size()) * 4;
         while (q1Sum != q2Sum && repeat < maxRepeat) {
             if (q1Sum > q2Sum) {
                 int get = q1.poll();
