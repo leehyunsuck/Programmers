@@ -3,45 +3,40 @@ class Solution {
         return this.trans(p);
     }
     
-    // 변환
-    public String trans(String str) {
-        // [1]
-        if (str.length() == 0)
+    public String trans(String str) {           // 변환
+        if (str.length() == 0)                  // [1]
             return str;
-        
-        // [2]
-        String[] arrUV = this.splitUV(str);
+
+        String[] arrUV = this.splitUV(str);     // [2]
         String  u = arrUV[0],
                 v = arrUV[1];
         
-        // [3]
-        if (this.check(u)) {
-            // [3-1]
-            String vResult = this.trans(v);
-            return u + vResult;
+        if (this.check(u)) {                    // [3]
+            String vResult = this.trans(v);     // [3-1]
+            return u + vResult;                 
         }
         
-        // [4]
-        return this.createNewStr(u, v);
+        return this.createNewStr(u, v);         // [4]
     }
     
-    // [4] 용 메소드
-    public String createNewStr(String u, String v) {
-        StringBuilder make = new StringBuilder();
-        make.append('(');
-        make.append(this.trans(v));
-        make.append(')');
+    
+    public String[] splitUV(String str) {       // [2] 용 메소드
+        String[] result = new String[2];
         
-        for (int i = 1; i < u.length() - 1; i++)
-            make.append(u.charAt(i) == '(' ? ')' : '(');
+        int uIdx = 0, uCount = 0;
+        for (char c : str.toCharArray()) {
+            if (c == '(') uCount++;
+            else uCount--;
+            uIdx++;
+            
+            if (uCount == 0) break;
+        }
         
-        return make.toString();
+        return new String[] { str.substring(0, uIdx), str.substring(uIdx) };
     }
     
-    // [3-1] 용 메소드
-    public boolean check(String str) {
+    public boolean check(String str) {          // [3-1] 용 메소드
         int check = 0;
-        
         for (char c : str.toCharArray()) {
             if (c == '(') check++;
             else if (c == ')' && check > 0) check--;
@@ -49,23 +44,17 @@ class Solution {
         }
         return check == 0;
     }
-
-    // [2] 용 메소드
-    public String[] splitUV(String str) {
-        String[] result = new String[2];
+    
+    public String createNewStr(String u, String v) {    // [4] 용 메소드
+        StringBuilder make = new StringBuilder();
+        make.append('(');                               // [4-1]
+        make.append(this.trans(v));                     // [4-2]
+        make.append(')');                               // [4-3]
         
-        int uIdx = 0,
-            uCount = 0;
-        for (char c : str.toCharArray()) {
-            if (c == '(') uCount++;
-            else uCount--;
-            uIdx++;
-            
-            if (uCount == 0)
-                break;
-        }
+        for (int i = 1; i < u.length() - 1; i++)        // [4-4]
+            make.append(u.charAt(i) == '(' ? ')' : '(');
         
-        return new String[] { str.substring(0, uIdx), str.substring(uIdx) };
+        return make.toString();                         // [4-5]
     }
 }
 
