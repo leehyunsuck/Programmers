@@ -1,43 +1,39 @@
 import java.util.*;
 
 class Solution {
-    public int[] solution(String[] id_list, String[] report_list, int k) {
-        
-        //id : id를 신고한 유저
-        Map<String, Set<String>> reportLog = new HashMap<>();
-        //결과 값 Map
-        Map<String, Integer> resultMap = new HashMap<>();
-        
-        //Map 초기화
-        for (String id : id_list) {
-            reportLog.put(id, new HashSet<>());
-            resultMap.put(id, 0);
+    public int[] solution(String[] ids, String[] reports, int k) {
+        Map<String, Integer> answerMap = new HashMap<>();       // 유저 : 메일 받을 개수
+        Map<String, Set<String>> reportMap = new HashMap<>();   // 신고대상 : 신고자 (중복x)
+
+        // 두 맵 초기화
+        for (String id : ids) {
+            answerMap.put(id, 0);
+            reportMap.put(id, new HashSet<>());
         }
-        
-        for (String report : report_list) {
-            //(신고한사람, 신고당한사람)
-            String[] rUAT = report.split(" "); //reportUserAndTarget
-   
-            //신고당한사람 : 신고한사람추가
-            reportLog.get(rUAT[1]).add(rUAT[0]);
+
+        // reportMap 데이터 저장
+        for (String report : reports) {
+            // [0] -> 신고자, [1] -> 신고 대상
+            String[] reportSplit = report.split(" ");
+
+            Set<String> reportSet = reportMap.get(reportSplit[1]);
+            reportSet.add(reportSplit[0]);
+            reportMap.put(reportSplit[1], reportSet);
         }
-    
-        //결과값 담을 배열
-        int[] answer = new int[id_list.length];
-        
-        for (String id : id_list) {
-            if (reportLog.get(id).size() < k) continue;
-            //id 신고 당한 횟수가 k보다 크면
-            for (String s : reportLog.get(id)) {
-                //s는 신고한 사람
-                resultMap.put(s, resultMap.get(s) + 1);
-            }
+
+        // 메일 받을 사람 확인
+        for (String id : ids) {
+            Set<String> reportSet = reportMap.get(id);
+
+            if (reportSet.size() < k) continue;
+            for (String report : reportSet)
+                answerMap.put(report, answerMap.get(report) + 1);
         }
-        
-        for (int i = 0; i < id_list.length; i++) {
-            answer[i] = resultMap.get(id_list[i]);
-        }
-        
+
+        int[] answer = new int[answerMap.size()];
+        for (int i = 0; i < answer.length; i++)
+            answer[i] = answerMap.get(ids[i]);
+
         return answer;
     }
 }
