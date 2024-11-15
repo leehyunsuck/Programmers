@@ -15,6 +15,7 @@ class Solution {
         
         while (!queue.isEmpty()) {
             int[] poll = queue.poll();
+            
             int x = poll[0],
                 y = poll[1],
                 count = poll[2];
