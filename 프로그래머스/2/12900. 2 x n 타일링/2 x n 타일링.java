@@ -2,15 +2,16 @@ class Solution {
     public int solution(int n) {
         if (n <= 2) return n;
         
-        int[] dp = new int[n + 1];
-        dp[0] = 0;
-        dp[1] = 1;
-        dp[2] = 2;
+        int answer = 2,
+            min = 1;
         
-        for (int idx = 3; idx < dp.length; idx++)
-            dp[idx] = (dp[idx - 1] + dp[idx - 2]) % 1000000007;
-        
-        return dp[n];
+        for (int i = 3; i < n + 1; i++) {
+            int temp = answer;
+            answer = (answer + min) % 1_000_000_007;
+            min = temp;
+        }
+
+        return answer;
     }
 }
 
