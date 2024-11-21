@@ -3,40 +3,42 @@ import java.util.*;
 class Solution {
     public String[] solution(String[] files) {
         Arrays.sort(files, (f1, f2) -> {
-            String[] f1Split = this.split(f1),
-                     f2Split = this.split(f2);
+            String[] f1Split = this.fileSplit(f1),
+                     f2Split = this.fileSplit(f2);
             
             int headSort = f1Split[0].compareToIgnoreCase(f2Split[0]);
             if (headSort != 0) return headSort;
             
-            int numberSort = Integer.parseInt(f1Split[1]) - Integer.parseInt(f2Split[1]);
-            return numberSort;
+            return Integer.compare(Integer.parseInt(f1Split[1]), Integer.parseInt(f2Split[1]));
         });
         
         return files;
     }
-
     
-    private String[] split(String file) {
-        int headIdx   = -1,
-            numberIdx = -1;
-
+    public String[] fileSplit(String file) {
+        int headLastIdx = -1,
+            numberLastIdx = -1;
+        
         for (int idx = 0; idx < file.length(); idx++) {
-            if (numberIdx != -1) break;
-            
             char c = file.charAt(idx);
-
-            if (headIdx == -1) {
-                if (Character.isDigit(c))   headIdx = idx - 1;
-            } else if (numberIdx == -1) {
-                if (!Character.isDigit(c))  numberIdx = idx - 1;
+            
+            if (headLastIdx == -1) {
+                if (Character.isDigit(c))
+                    headLastIdx = idx - 1;
+            } else if (!Character.isDigit(c)) {
+                numberLastIdx = idx - 1;
+                break;
             }
         }
         
-        String head   = file.substring(0, headIdx + 1),
-               number = numberIdx == -1 ? file.substring(headIdx + 1) : file.substring(headIdx + 1, numberIdx + 1),
-               tail   = numberIdx == -1 ? "" : file.substring(numberIdx + 1);
+        if (numberLastIdx == -1)             numberLastIdx = headLastIdx + 5;
+        if (numberLastIdx >= file.length())  numberLastIdx = file.length() - 1;
+        if (numberLastIdx - headLastIdx > 5) numberLastIdx = headLastIdx + 5; 
         
-        return new String[] {head, number, tail};
+        String head = file.substring(0, headLastIdx + 1),
+               num  = file.substring(headLastIdx + 1, numberLastIdx + 1),
+               tail = numberLastIdx == file.length() - 1 ? "" : file.substring(numberLastIdx + 1);
+        
+        return new String[] {head, num, tail};
     }
 }
