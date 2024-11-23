@@ -8,18 +8,18 @@ class Solution {
             int temp = storey % 10;
             storey /= 10;
             
-            if (temp < 5) {
-                answer += temp;
-            } else if (temp > 5) {
-                answer += 10 - temp;
-                storey++;
-            } else {
-                if (storey % 10 >= 5) {
+            switch (temp) {
+                case 0: case 1: case 2: case 3: case 4: // temp < 5
+                    answer += temp;
+                    break;
+                case 6: case 7: case 8: case 9: // temp > 5
                     answer += 10 - temp;
                     storey++;
-                } else {
-                    answer += temp;
-                }
+                    break;
+                default:                        // temp == 5
+                    answer += 5;
+                    if (storey % 10 >= 5) storey++;
+                    break;
             }
         }
         
