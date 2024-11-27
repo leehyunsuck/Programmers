@@ -5,8 +5,8 @@ class Solution {
         int answer = 0;
         
         // 시작위치, 레버위치 저장용
-        int[] start  = new int[2],
-              button = new int[2];
+        int[] start  = new int[0],
+              button = new int[0];
         
         // 찾으면 반복 안하려는 용도
         boolean findS = false, 
@@ -21,10 +21,10 @@ class Solution {
             // 시작위치, 레버위치 찾기
             for (int j = 0; j < map[i].length; j++) {
                 if (!findS && map[i][j] == 'S') {
-                    start = new int[] {i, j};
+                    start = new int[] {i, j, 0};    // 0은 이동 카운트임
                     findS = true;
                 } else if (!findB && map[i][j] == 'L') {
-                    button = new int[] {i, j};
+                    button = new int[] {i, j, 0};   // 0은 이동 카운트임
                     findB = true;
                 }
             }
@@ -58,19 +58,12 @@ class Solution {
     // 레버찾기, 문찾기 총 2번 사용해야해서 따로 뺌
     public int bfs(char[][] map, boolean[][] used, Queue<int[]> queue, char target) {
         int moveCount = 0;
-        queue.offer(null);
         while (!queue.isEmpty()) {
             int[] poll = queue.poll();
             
-            if (poll == null) {
-                moveCount++;
-                if (!queue.isEmpty())
-                    queue.offer(null);
-                continue;
-            }
-            
             int row = poll[0],
-                col = poll[1];
+                col = poll[1],
+                mC  = poll[2];
             
             // 장외, 이미 방문, 벽이면 탐색안함
             if (row < 0 || row >= map.length
@@ -82,13 +75,13 @@ class Solution {
             used[row][col] = true;
             
             if (map[row][col] == target) {
-                return moveCount;
+                return mC;
             }
             
-            queue.offer(new int[] {row + 1, col});
-            queue.offer(new int[] {row - 1, col});
-            queue.offer(new int[] {row, col + 1});
-            queue.offer(new int[] {row, col - 1});
+            queue.offer(new int[] {row + 1, col, mC + 1});
+            queue.offer(new int[] {row - 1, col, mC + 1});
+            queue.offer(new int[] {row, col + 1, mC + 1});
+            queue.offer(new int[] {row, col - 1, mC + 1});
         }
         return 0;
     }
