@@ -5,17 +5,20 @@ class Solution {
         int answer = 0;
         
         Queue<Integer> pQ = new PriorityQueue<>(Collections.reverseOrder());
+        
         for (int e : enemy) {
             pQ.offer(e);
             n -= e;
+            answer++;
             
-            if (n < 0) {
-                if (k <= 0) break;
-                k--;
-                n += pQ.poll();
+            if (n >= 0) continue;
+            if (k <= 0) {
+                answer--;
+                break;
             }
             
-            answer++;
+            n += pQ.poll();
+            k--;
         }
         
         return answer;
