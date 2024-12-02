@@ -6,6 +6,11 @@ import java.util.*;
 
 // 도로는 양방향 통행
 class Solution {
+    
+    public String getKey(int location1, int location2) {
+        return Math.min(location1, location2) + "->" + Math.max(location1, location2);
+    }
+    
     public int solution(int N, int[][] road, int K) {
         Set<Integer> answerSet = new HashSet<>();
         answerSet.add(1);
@@ -25,12 +30,9 @@ class Solution {
             
             graph.get(locationA).add(locationB);
             graph.get(locationB).add(locationA);
-            
-            String k1 = locationA + " " + locationB,
-                   k2 = locationB + " " + locationA;
-            
-            timeMap.put(k1, Math.min(time, timeMap.getOrDefault(k1, Integer.MAX_VALUE)));
-            timeMap.put(k2, Math.min(time, timeMap.getOrDefault(k2, Integer.MAX_VALUE)));
+    
+            String key = getKey(locationA, locationB);
+            timeMap.put(key, Math.min(time, timeMap.getOrDefault(key, Integer.MAX_VALUE)));
         }
         
         // [로직2] 1번 지역부터 이동해서 K 시간 이하인지 확인
@@ -53,7 +55,7 @@ class Solution {
                 time     = poll[1];
             
             for (int nextLoc : graph.get(location)) {
-                String key = location + " " + nextLoc;
+                String key = getKey(location, nextLoc);
                 int moveTime = timeMap.get(key);
                 int timeSum = time + moveTime;
                 
