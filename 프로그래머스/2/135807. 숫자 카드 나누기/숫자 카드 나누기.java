@@ -9,8 +9,14 @@ class Solution {
         
         divisorAdd(aDivisor, arrayA);
         divisorAdd(bDivisor, arrayB);
-        setAnswer(aDivisor, arrayB);
-        setAnswer(bDivisor, arrayA);
+        
+        if (aDivisor.size() > 0 && bDivisor.size() > 0 && aDivisor.get(0) < bDivisor.get(0)) {
+            setAnswer(aDivisor, arrayB);
+            setAnswer(bDivisor, arrayA);
+        } else {
+            setAnswer(bDivisor, arrayA);
+            setAnswer(aDivisor, arrayB);
+        }
         
         return answer;
     }
