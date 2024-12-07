@@ -1,6 +1,30 @@
 import java.util.*;
 
 class Solution{
+    public int solution(int[][] board) {
+        int maxLen = 0;
+        
+        for (int row = 0; row < board.length; row++)
+            maxLen = Math.max(maxLen, board[row][0]);
+        for (int col = 0; col < board[0].length; col++)
+            maxLen = Math.max(maxLen, board[0][col]);
+        
+        for (int row = 1; row < board.length; row++) {
+            for (int col = 1; col < board[row].length; col++) {
+                if (board[row][col] == 0) continue;
+                board[row][col] = Math.min(Math.min(board[row-1][col], board[row][col-1]), board[row-1][col-1]) + 1;
+ 
+                maxLen = Math.max(maxLen, board[row][col]);
+            }
+        }
+        
+        return maxLen * maxLen;
+    }
+}
+/*
+import java.util.*;
+
+class Solution{
     private int maxLen;
     
     public int[][] getResetDP(int[][] board) {
@@ -40,7 +64,7 @@ class Solution{
         return maxLen * maxLen;
     }
 }
-
+*/
 
 /*
 
