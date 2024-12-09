@@ -27,37 +27,33 @@ class Solution {
             // 방문 처리
             visited[row][col] = true;
             
-            // 상 하 좌 우
-            int upRow = row - 1;
-            if (upRow >= 0 && map[upRow][col] != 'D') {
-                for (; upRow > 0; upRow--)
-                    if (isD(upRow, col)) break;
-                if (isD(upRow, col)) upRow++;
-                queue.offer(new int[] {upRow, col, moveCount + 1});
-            }
+            int[][] newRCs = {
+                {row - 1, col}, 
+                {row + 1, col}, 
+                {row, col - 1}, 
+                {row, col + 1}
+            };
             
-            int downRow = row + 1;
-            if (downRow < map.length && map[downRow][col] != 'D') {
-                for (; downRow < map.length - 1; downRow++)
-                    if (isD(downRow, col)) break;
-                if (isD(downRow, col)) downRow--;
-                queue.offer(new int[] {downRow, col, moveCount + 1});
-            }
+            int[] check = {0, map.length, 0, map[0].length};
             
-            int leftCol = col - 1;
-            if (leftCol >= 0 && map[row][leftCol] != 'D') {
-                for (; leftCol > 0; leftCol--) 
-                    if (isD(row, leftCol)) break;
-                if (isD(row, leftCol)) leftCol++;
-                queue.offer(new int[] {row, leftCol, moveCount + 1});
-            }
-            
-            int rightCol = col + 1;
-            if (rightCol < map[row].length && map[row][rightCol] != 'D') {
-                for (; rightCol < map[row].length - 1; rightCol++)
-                    if (isD(row, rightCol)) break;
-                if (isD(row, rightCol)) rightCol--;
-                queue.offer(new int[] {row, rightCol, moveCount + 1});
+            for (int idx = 0; idx < newRCs.length; idx++) {
+                int[] newRC = newRCs[idx];
+                // 0보다 크거나 같은지 확인
+                if (idx % 2 == 0) {
+                    if (newRC[idx / 2] >= check[idx] && map[newRC[0]][newRC[1]] != 'D') {
+                        for (; newRC[idx / 2] > check[idx]; newRC[idx / 2]--)
+                            if (isD(newRC[0], newRC[1])) break;
+                        if (isD(newRC[0], newRC[1])) newRC[idx / 2]++;
+                        queue.offer(new int[] {newRC[0], newRC[1], moveCount + 1});
+                    }
+                } else {
+                    if (newRC[idx / 2] < check[idx] && map[newRC[0]][newRC[1]] != 'D') {
+                        for (; newRC[idx / 2] < check[idx] - 1; newRC[idx / 2]++) 
+                            if (isD(newRC[0], newRC[1])) break;
+                        if (isD(newRC[0], newRC[1])) newRC[idx / 2]--;
+                        queue.offer(new int[] {newRC[0], newRC[1], moveCount + 1});
+                    }
+                }
             }
         }
         
