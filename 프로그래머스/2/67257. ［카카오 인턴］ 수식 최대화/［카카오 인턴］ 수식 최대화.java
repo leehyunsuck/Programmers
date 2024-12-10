@@ -3,8 +3,7 @@ import java.util.*;
 class Solution {
     // 숫자Queue, 연산자Queue, 연산자개수Map, 연산자List 초기화
     public void resetInfo(String expression, Queue<Long> numsQ, Queue<Character> operatorsQ,
-                          Map<Character, Integer> operatorsM, char[] operators,
-                          List<String> orders) {
+                          char[] operators, List<String> orders) {
         List<Character> operatorList = new ArrayList<>();
         for (char operator : operators) operatorList.add(operator);
         
@@ -15,7 +14,6 @@ class Solution {
             else {
                 numsQ.offer(Long.parseLong(numBuilder.toString()));
                 operatorsQ.offer(c);
-                operatorsM.put(c, operatorsM.getOrDefault(c, 0) + 1);
                 numBuilder.setLength(0);
             }
         }
@@ -39,7 +37,7 @@ class Solution {
     }
     
     // 우선순위에 따라 계산된 값   *** 여기 좀 많이 어려웠음 ***
-    public long getLongToInfo(Queue<Long> nQ, Queue<Character> oQ, Map<Character, Integer> cM, String order) {
+    public long getLongToInfo(Queue<Long> nQ, Queue<Character> oQ, String order) {
         // 문자열로 들어온 연산자 순서를 배열에 넣음
         String[] split = order.replace("[", "").replace("]", "").split(", ");
         char[] operOrders = new char[split.length];
@@ -92,17 +90,15 @@ class Solution {
         
         Queue<Long> numsQ = new LinkedList<>();                 // 숫자들
         Queue<Character> operatorsQ = new LinkedList<>();       // 연산자들 
-        Map<Character, Integer> operatorsM = new HashMap<>();   // 연산자 개수
         List<String> orders = new LinkedList<>();               // 연산자 조합 가능한 모든 경우
         
-        resetInfo(expression, numsQ, operatorsQ, operatorsM, operators, orders);
+        resetInfo(expression, numsQ, operatorsQ, operators, orders);
         
         long answer = 0l;
         for (String order : orders) {
             Queue<Long> cloneNumQ = new LinkedList<>(numsQ);
             Queue<Character> cloneOperQ = new LinkedList<>(operatorsQ);
-            Map<Character, Integer> cloneCountM = new HashMap<>(operatorsM);
-            answer = Math.max(answer, getLongToInfo(cloneNumQ, cloneOperQ, cloneCountM, order));
+            answer = Math.max(answer, getLongToInfo(cloneNumQ, cloneOperQ, order));
         }
 
         return answer;
