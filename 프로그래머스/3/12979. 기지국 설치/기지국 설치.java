@@ -1,25 +1,22 @@
 class Solution {    
     public int solution(int n, int[] stations, int w) {
         int answer = 0,
-            basicStationIdx = 0,
+            bSIdx = 0,
             nowStation = 1,
-            cover = 2 * w + 1;
+            coverRange = 2 * w + 1;
         
         while (nowStation <= n) {
-            int basicStationMin = Integer.MAX_VALUE;
-            if (basicStationIdx < stations.length)
-                basicStationMin = stations[basicStationIdx] - w;
+            int bStationMin = Integer.MAX_VALUE;
+            if (bSIdx < stations.length)
+                bStationMin = stations[bSIdx] - w;
             
-            if (nowStation >= basicStationMin) {
-                nowStation = stations[basicStationIdx] + w + 1;
-                basicStationIdx++;
-                continue;
+            if (nowStation >= bStationMin) nowStation = stations[bSIdx++] + w + 1;
+            else {
+                answer++;
+                nowStation += coverRange;
             }
-            
-            answer++;
-            nowStation += cover;
         }
-        
+
         return answer;
     }
 }
