@@ -1,5 +1,7 @@
 import java.util.*;
 
+// 제출 후 Math.log10 함수에 대해 알게됨 (다른사람풀이)
+
 class Solution {
     public int solution(String s) {
         int answer = s.length();
@@ -18,11 +20,11 @@ class Solution {
                     continue;
                 }
                 
-                strLen += count > 1 ? len + String.valueOf(count).length() : len;
+                strLen += count > 1 ? len + (int) Math.log10(count) + 1: len;
                 nowWord = nextWord;
                 count = 1;
             }
-            strLen += count > 1 ? len + String.valueOf(count).length() : nowWord.length();
+            strLen += count > 1 ? len + (int) Math.log10(count) + 1 : nowWord.length();
             
             answer = Math.min(answer, strLen);
         }
