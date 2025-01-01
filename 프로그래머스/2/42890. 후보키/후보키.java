@@ -24,8 +24,10 @@ class Solution {
         for (String[] relation : relations) {
             StringBuilder builder = new StringBuilder();
             
-            for (int idx : key) 
+            for (int idx : key) {
                 builder.append(relation[idx]);
+                builder.append(" ");
+            }
             
             if (!set.add(builder.toString())) return false;
         }
