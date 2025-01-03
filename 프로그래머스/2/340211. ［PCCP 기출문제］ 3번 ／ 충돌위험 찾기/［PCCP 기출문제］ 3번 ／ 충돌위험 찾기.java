@@ -19,7 +19,7 @@ class Solution {
         }
         
         public boolean moveForEnd() {
-            while (now[0] == end[0] && now[1] == end[1]) {
+            if (now[0] == end[0] && now[1] == end[1]) {
                 if (idx == route.length) return true;
                 end = Arrays.copyOf(points[route[idx++] - 1], 2);
             }
