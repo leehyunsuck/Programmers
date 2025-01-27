@@ -2,34 +2,25 @@ import java.util.*;
 
 class Solution {
     public int solution(int[][] scores) {
-        int answer = 1;
-        int[] wanhoScore = scores[0];
-
-        Arrays.sort(scores, (a1, a2) -> {
-            if (a1[0] != a2[0]) return a2[0] - a1[0];   // 첫번째 내림
-            return a1[1] - a2[1];                       // 같다면 두번쨰 올림
-        });
+        int[] wanho = scores[0];
+        Arrays.parallelSort(scores, (a1, a2) -> a1[0] == a2[0] ? a1[1] - a2[1] : a2[0] - a1[0]);
         
-        /*
-        for (int[] score : scores)
-            System.out.println(Arrays.toString(score));
-        */
-
-        int maxSecond = 0;
-
+        int answer = 1, 
+            maxColleagueScore = 0;
         for (int[] score : scores) {
-            // 인센티브 못받음
-            if (score[1] < maxSecond) {
-                if (score == wanhoScore) return -1;
+            if (score[1] < maxColleagueScore) {
+                if (score == wanho) return -1;
                 continue;
             }
-            maxSecond = score[1];
-
-            // 완호 등수 밀려남
-            if (score[0] + score[1] > wanhoScore[0] + wanhoScore[1]) 
+            maxColleagueScore = score[1];
+            
+            if (score[0] + score[1] > wanho[0] + wanho[1])
                 answer++;
         }
-
+        
         return answer;
     }
 }
+
+// 배열 길이 최대 100,000 인김에 병렬 작동하는지 테스트
+// + 다른 사람 풀이에서 정렬한거 보고 삼항 연산자로 해봄
