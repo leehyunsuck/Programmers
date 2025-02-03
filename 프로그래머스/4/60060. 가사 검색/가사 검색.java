@@ -44,11 +44,11 @@ class Trie {
     
     public void insert(String word) {
         Node node = root;
-        node.count++;
+        
         for (char c : word.toCharArray()) {
+            node.count++;
             if (!node.map.containsKey(c)) node.map.put(c, new Node());
             node = node.map.get(c);
-            node.count++;
         }
     }
     
