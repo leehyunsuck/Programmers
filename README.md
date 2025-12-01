@@ -1,7 +1,19 @@
-# Programmers
+# Programmers Algorithm Study
 
-https://school.programmers.co.kr/
+## 목표 (Goal)
+* 1일 1코딩 (1 Day 1 Commit) 실천하기
+* 총 200문제 풀이 달성하기
+* 꾸준한 알고리즘 학습을 통한 코딩 실력 향상
 
-1 day 1 codingtest
+## 소개 (Introduction)
+이 저장소는 프로그래머스(Programmers)의 알고리즘 문제 풀이 코드를 저장하는 공간입니다.
+스스로 공부하며 작성한 코드들이며, 학습 흔적을 기록하기 위해 운영하고 있습니다.
 
-This is an auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
+## 자동화 (Automation)
+이 저장소의 코드는 크롬 확장 프로그램인 BaekjoonHub를 활용하여 자동으로 업로드되었습니다.
+문제를 풀면 자동으로 소스 코드와 문제 설명이 커밋됩니다.
+
+## 현재 상황 (Progress)
+* 목표: 200문제
+* 달성 완료
+
